@@ -93,6 +93,9 @@ lib/
 
 ### Test Coverage
 
+<img src="assets/doc/coverage.png"  width="400">
+
+The app has more than 90% of test coverage.
 
 
 ## Running the Project
@@ -107,5 +110,11 @@ Only one device connected.
 
 Without coverage
 ```flutter test test/```
+
 With coverage
 ```flutter test --machine --coverage > tests.output```
+
+## Firebase Account
+Email: test.seva.auth@gmail.com
+Password: testseva123
+Project: test-seva
