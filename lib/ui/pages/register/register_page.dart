@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:seva_auth/domain/entities/user_entity.dart';
 import 'package:seva_auth/ui/components/main_alert.dart';
 import 'package:seva_auth/ui/components/main_button.dart';
 import 'package:seva_auth/ui/components/main_input.dart';
@@ -107,6 +106,9 @@ class RegisterPage extends StatelessWidget {
                                   duration: const Duration(seconds: 3),
                                 );
                               }
+                              if (state is SuccessState) {
+                                Navigator.pop(context);
+                              }
                             },
                             builder: (context, state) {
                               return MainButton(
@@ -114,12 +116,12 @@ class RegisterPage extends StatelessWidget {
                                 loading: state is LoadingState,
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
-                                    var user = UserEntity(
+                                    FocusScope.of(context).unfocus();
+                                    bloc(
                                       name: nameController.text,
                                       email: emailController.text,
                                       password: passwordController.text,
                                     );
-                                    bloc(user);
                                   }
                                 },
                               );

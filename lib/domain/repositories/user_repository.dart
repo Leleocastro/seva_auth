@@ -1,8 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:seva_auth/domain/entities/user_entity.dart';
 
 import '../../utils/failure.dart';
-import '../entities/user_entity.dart';
 
 abstract class UserRepository {
-  Future<(User?, Failure?)> registerUser(UserEntity user);
+  Future<(UserEntity?, Failure?)> registerUser({
+    required String name,
+    required String email,
+    required String password,
+  });
+
+  Stream<UserEntity?> getStateAuth();
+
+  Future<(UserEntity?, Failure?)> getCurrentUser();
+
+  Future<(bool?, Failure?)> signIn({
+    required String email,
+    required String password,
+  });
 }
