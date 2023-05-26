@@ -95,6 +95,7 @@ class RegisterPage extends StatelessWidget {
                             style: theme.primaryTextTheme.bodyMedium,
                           ),
                           MainInput(
+                            key: const Key('name'),
                             controller: nameController,
                             label: 'User Name',
                             hint: 'Enter your name',
@@ -109,6 +110,7 @@ class RegisterPage extends StatelessWidget {
                             },
                           ),
                           MainInput(
+                            key: const Key('email'),
                             controller: emailController,
                             label: 'Email',
                             hint: 'Enter your email',
@@ -122,6 +124,7 @@ class RegisterPage extends StatelessWidget {
                             },
                           ),
                           MainInput(
+                            key: const Key('password'),
                             controller: passwordController,
                             label: 'Password',
                             hint: 'Enter your password',

@@ -93,6 +93,7 @@ class LoginPage extends StatelessWidget {
                             style: theme.primaryTextTheme.bodyMedium,
                           ),
                           MainInput(
+                            key: const Key('email'),
                             controller: emailController,
                             label: 'Email',
                             hint: 'Enter your email',
@@ -106,6 +107,7 @@ class LoginPage extends StatelessWidget {
                             },
                           ),
                           MainInput(
+                            key: const Key('password'),
                             controller: passwordController,
                             label: 'Password',
                             hint: 'Enter your password',

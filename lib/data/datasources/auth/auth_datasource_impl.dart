@@ -39,7 +39,7 @@ class AuthDatasourceImpl implements AuthDatasource {
 
   @override
   Stream<UserModel?> getStateAuth() {
-    return _auth.authStateChanges().map((user) {
+    return _auth.authStateChanges().map<UserModel?>((user) {
       if (user == null) {
         return null;
       }

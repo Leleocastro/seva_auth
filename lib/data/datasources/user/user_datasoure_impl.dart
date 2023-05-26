@@ -8,7 +8,8 @@ class UserDatasourceImpl implements UserDatasource {
   const UserDatasourceImpl(this._firestore);
   @override
   Future<(bool?, Failure?)> saveUser(UserModel userModel) async {
-    CollectionReference users = _firestore.collection('users');
+    CollectionReference<Map<String, dynamic>> users =
+        _firestore.collection('users');
 
     try {
       await users.doc(userModel.id).set(userModel.toJson());

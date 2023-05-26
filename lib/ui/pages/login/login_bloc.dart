@@ -18,7 +18,7 @@ class LoginBloc extends Cubit<BaseState> {
   }) async {
     emit(const LoadingState());
 
-    final (data, err) = await _signIn(
+    final (ok, err) = await _signIn(
       email: email,
       password: password,
     );
@@ -27,7 +27,7 @@ class LoginBloc extends Cubit<BaseState> {
       return;
     }
 
-    emit(SuccessState(data));
+    emit(SuccessState(ok));
   }
 
   void logout() async {

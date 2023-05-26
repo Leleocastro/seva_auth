@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:seva_auth/domain/entities/user_entity.dart';
+import 'package:seva_auth/ui/components/main_error_try_again.dart';
 
 import '../../../utils/base_state.dart';
 import '../login/login_bloc.dart';
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             );
           }
           if (state is ErrorState) {
-            return Center(child: Text(state.message));
+            return MainErrorTryAgain(onTryAgain: bloc.getUsers);
           }
           if (state is LoadingState) {
             return Center(
