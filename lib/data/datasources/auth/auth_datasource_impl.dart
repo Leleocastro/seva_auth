@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:seva_auth/data/datasources/user/user_datasource.dart';
+import 'package:seva_auth/data/datasources/auth/auth_datasource.dart';
 import 'package:seva_auth/data/models/user_model.dart';
 import 'package:seva_auth/utils/failure.dart';
 
-class UserDatasourceImpl implements UserDatasource {
+class AuthDatasourceImpl implements AuthDatasource {
   final FirebaseAuth _auth;
-  const UserDatasourceImpl(this._auth);
+  const AuthDatasourceImpl(this._auth);
 
   @override
   Future<(UserModel?, Failure?)> registerUser({
@@ -39,7 +39,7 @@ class UserDatasourceImpl implements UserDatasource {
 
   @override
   Stream<UserModel?> getStateAuth() {
-    return _auth.authStateChanges().map((user) {
+    return _auth.authStateChanges().map<UserModel?>((user) {
       if (user == null) {
         return null;
       }
@@ -52,7 +52,7 @@ class UserDatasourceImpl implements UserDatasource {
   }
 
   @override
-  Future<(UserModel?, Failure?)> getCurrentUser() async {
+  (UserModel?, Failure?) getCurrentUser() {
     var resp = _auth.currentUser;
 
     if (resp == null) {
@@ -82,6 +82,19 @@ class UserDatasourceImpl implements UserDatasource {
       if (resp.user == null) {
         return (null, Failure('Failed to sign in!'));
       }
+
+      return (true, null);
+    } on FirebaseAuthException catch (e) {
+      return (null, Failure(e.message ?? 'Failed to sign in!'));
+    } catch (e) {
+      return (null, Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<(bool?, Failure?)> signOut() async {
+    try {
+      await _auth.signOut();
 
       return (true, null);
     } on FirebaseAuthException catch (e) {

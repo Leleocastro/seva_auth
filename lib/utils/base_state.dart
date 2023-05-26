@@ -12,7 +12,7 @@ class LoadingState implements BaseState {
   bool get stringify => false;
 }
 
-class SuccessState<T> implements BaseState {
+class SuccessState<T> extends Equatable implements BaseState {
   final T data;
 
   const SuccessState(this.data);
@@ -24,7 +24,7 @@ class SuccessState<T> implements BaseState {
   bool get stringify => false;
 }
 
-class ErrorState implements BaseState {
+class ErrorState extends Equatable implements BaseState {
   final String message;
   final String? errorCode;
 
@@ -37,7 +37,7 @@ class ErrorState implements BaseState {
   bool get stringify => false;
 }
 
-class EmptyState implements BaseState {
+class EmptyState extends Equatable implements BaseState {
   final String? message;
 
   const EmptyState({this.message});

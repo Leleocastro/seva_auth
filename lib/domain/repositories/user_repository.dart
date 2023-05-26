@@ -11,10 +11,14 @@ abstract class UserRepository {
 
   Stream<UserEntity?> getStateAuth();
 
-  Future<(UserEntity?, Failure?)> getCurrentUser();
+  (UserEntity?, Failure?) getCurrentUser();
 
   Future<(bool?, Failure?)> signIn({
     required String email,
     required String password,
   });
+
+  Future<(bool?, Failure?)> signOut();
+
+  Future<(List<UserEntity>?, Failure?)> getUsers();
 }

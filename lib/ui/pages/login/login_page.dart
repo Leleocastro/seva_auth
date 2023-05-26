@@ -24,7 +24,46 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          const FlutterLogo(),
+          Align(
+            alignment: Alignment.topRight,
+            child: Hero(
+              tag: 'topImage',
+              child: Transform(
+                transform: Matrix4.identity()..rotateZ(-0.2),
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withOpacity(.7),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(75),
+                      bottomRight: Radius.circular(75),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Hero(
+              tag: 'bottomImage',
+              child: Transform(
+                transform: Matrix4.identity()..rotateZ(0.2),
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: theme.hintColor.withOpacity(.7),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(75),
+                      topLeft: Radius.circular(75),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 50),
@@ -50,10 +89,11 @@ class LoginPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Create Account',
+                            'Sign In',
                             style: theme.primaryTextTheme.bodyMedium,
                           ),
                           MainInput(
+                            key: const Key('email'),
                             controller: emailController,
                             label: 'Email',
                             hint: 'Enter your email',
@@ -67,6 +107,7 @@ class LoginPage extends StatelessWidget {
                             },
                           ),
                           MainInput(
+                            key: const Key('password'),
                             controller: passwordController,
                             label: 'Password',
                             hint: 'Enter your password',
@@ -100,7 +141,7 @@ class LoginPage extends StatelessWidget {
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     FocusScope.of(context).unfocus();
-                                    bloc(
+                                    bloc.login(
                                       email: emailController.text,
                                       password: passwordController.text,
                                     );

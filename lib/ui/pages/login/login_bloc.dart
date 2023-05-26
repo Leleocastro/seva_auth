@@ -2,17 +2,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:seva_auth/domain/usecases/sign_in.dart';
 import 'package:seva_auth/utils/base_state.dart';
 
+import '../../../domain/usecases/sign_out.dart';
+
 class LoginBloc extends Cubit<BaseState> {
   final SignIn _signIn;
-  LoginBloc(this._signIn) : super(const EmptyState());
+  final SignOut _signOut;
+  LoginBloc(
+    this._signIn,
+    this._signOut,
+  ) : super(const EmptyState());
 
-  void call({
+  void login({
     required String email,
     required String password,
   }) async {
     emit(const LoadingState());
 
-    final (data, err) = await _signIn(
+    final (ok, err) = await _signIn(
       email: email,
       password: password,
     );
@@ -21,6 +27,18 @@ class LoginBloc extends Cubit<BaseState> {
       return;
     }
 
-    emit(SuccessState(data));
+    emit(SuccessState(ok));
+  }
+
+  void logout() async {
+    emit(const LoadingState());
+
+    final (ok, err) = await _signOut();
+    if (err != null) {
+      emit(ErrorState(err.message));
+      return;
+    }
+
+    emit(SuccessState(ok));
   }
 }

@@ -19,8 +19,11 @@ class RegisterUser {
     if (email.isEmpty || !email.contains('@')) {
       return (null, Failure('Invalid email!'));
     }
-    if (password.isEmpty || password.length < 6) {
-      return (null, Failure('Invalid password!'));
+    if (password.isEmpty || password.length <= 6) {
+      return (
+        null,
+        Failure('Invalid password, must has more at least 6 characters!'),
+      );
     }
 
     return await _repository.registerUser(
