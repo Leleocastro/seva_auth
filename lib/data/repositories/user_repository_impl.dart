@@ -29,7 +29,6 @@ class UserRepositoryImpl implements UserRepository {
 
     var (_, err2) = await _userDatasource.saveUser(user!);
     if (err2 != null) {
-      //TODO: delete user in auth
       return (null, Failure('Failed to save user!'));
     }
 

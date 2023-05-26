@@ -2,14 +2,11 @@ import 'package:equatable/equatable.dart';
 
 abstract class BaseState extends Equatable {}
 
-class LoadingState implements BaseState {
+class LoadingState extends Equatable implements BaseState {
   const LoadingState();
 
   @override
   List<Object?> get props => [];
-
-  @override
-  bool get stringify => false;
 }
 
 class SuccessState<T> extends Equatable implements BaseState {
@@ -19,9 +16,6 @@ class SuccessState<T> extends Equatable implements BaseState {
 
   @override
   List<Object?> get props => [data];
-
-  @override
-  bool get stringify => false;
 }
 
 class ErrorState extends Equatable implements BaseState {
@@ -32,9 +26,6 @@ class ErrorState extends Equatable implements BaseState {
 
   @override
   List<Object?> get props => [message, errorCode];
-
-  @override
-  bool get stringify => false;
 }
 
 class EmptyState extends Equatable implements BaseState {
@@ -44,7 +35,4 @@ class EmptyState extends Equatable implements BaseState {
 
   @override
   List<Object?> get props => [];
-
-  @override
-  bool get stringify => false;
 }

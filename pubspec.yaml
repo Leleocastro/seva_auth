@@ -1,10 +1,10 @@
 name: seva_auth
-description: A new Flutter project.
+description: An app to register, login, logout and list all users from firebase.
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:

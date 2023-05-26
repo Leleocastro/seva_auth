@@ -1,0 +1,81 @@
+name: Seva Auth
+on:
+  push:
+    branches:
+      - master
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.10.2'
+        channel: 'stable'
+    - name: Flutter Tests
+      run: |
+        flutter test
+  version:
+    name: Create version number
+    needs: [ tests ]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Fetch all history for all tags and branches
+      run: |
+        git config --global user.email leonardocastro.consultor@gmail.com
+        git config --global user.name Leleocastro
+        git remote set-url origin https://${{secrets.COMMIT_SECRET}}@github.com/leleocastro/seva_auth.git
+        git fetch --prune --depth=10000
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.11
+      with:
+        versionSpec: '5.8.x'
+    - name: Use GitVersion
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.11
+    - name: Create version.txt with nuGetVersion
+      run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+    - name: Upload version.txt
+      uses: actions/upload-artifact@v2
+      with:
+        name: gitversion
+        path: version.txt
+  build-android:
+    name: Build APK and Create release
+    needs: [ version, tests ]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.10.2'
+        channel: 'stable'
+    - name: Get version.txt
+      uses: actions/download-artifact@v2
+      with:
+        name: gitversion
+    - name: Read version
+      id: version
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: version.txt
+    - name: Pub Get 
+      run: |
+        flutter clean
+        flutter pub get
+        flutter build apk --release
+    - name: Create a Release in GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "base_app/build/app/outputs/apk/release/*.apk"
+        token: ${{ secrets.COMMIT_SECRET }}
+        tag: ${{ steps.version.outputs.content }}
+        commit: ${{ github.sha }}
