@@ -7,7 +7,7 @@ class GetCurrentUser {
   final UserRepository _repository;
   const GetCurrentUser(this._repository);
 
-  Future<(UserEntity?, Failure?)> call() async {
-    return await _repository.getCurrentUser();
+  (UserEntity?, Failure?) call() {
+    return _repository.getCurrentUser();
   }
 }

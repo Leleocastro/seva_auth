@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:seva_auth/data/datasources/user/user_datasource.dart';
+import 'package:seva_auth/data/datasources/auth/auth_datasource.dart';
 import 'package:seva_auth/data/models/user_model.dart';
 import 'package:seva_auth/utils/failure.dart';
 
-class UserDatasourceImpl implements UserDatasource {
+class AuthDatasourceImpl implements AuthDatasource {
   final FirebaseAuth _auth;
-  const UserDatasourceImpl(this._auth);
+  const AuthDatasourceImpl(this._auth);
 
   @override
   Future<(UserModel?, Failure?)> registerUser({
@@ -52,7 +52,7 @@ class UserDatasourceImpl implements UserDatasource {
   }
 
   @override
-  Future<(UserModel?, Failure?)> getCurrentUser() async {
+  (UserModel?, Failure?) getCurrentUser() {
     var resp = _auth.currentUser;
 
     if (resp == null) {
