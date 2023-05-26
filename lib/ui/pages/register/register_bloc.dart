@@ -1,15 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:seva_auth/domain/entities/user_entity.dart';
-import 'package:seva_auth/domain/usecases/register_user_usecase.dart';
+import 'package:seva_auth/domain/usecases/register_user.dart';
 import 'package:seva_auth/utils/base_state.dart';
 
 class RegisterBloc extends Cubit<BaseState> {
-  final RegisterUserUseCase _useCase;
-  RegisterBloc(this._useCase) : super(const EmptyState());
+  final RegisterUser _registerUser;
+  RegisterBloc(this._registerUser) : super(const EmptyState());
 
-  void call(UserEntity user) async {
+  void call({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     emit(const LoadingState());
-    var (data, err) = await _useCase.call(user);
+    final (data, err) = await _registerUser(
+      name: name,
+      email: email,
+      password: password,
+    );
     if (err != null) {
       emit(ErrorState(err.message));
       return;

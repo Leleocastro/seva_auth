@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:seva_auth/utils/routes.dart';
 
 import '../../../utils/base_state.dart';
@@ -16,7 +17,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final formKey = GlobalKey<FormState>();
-    final bloc = LoginBloc();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final bloc = GetIt.I<LoginBloc>();
 
     return Scaffold(
       body: Stack(
@@ -51,6 +54,7 @@ class LoginPage extends StatelessWidget {
                             style: theme.primaryTextTheme.bodyMedium,
                           ),
                           MainInput(
+                            controller: emailController,
                             label: 'Email',
                             hint: 'Enter your email',
                             keyboardType: TextInputType.emailAddress,
@@ -63,6 +67,7 @@ class LoginPage extends StatelessWidget {
                             },
                           ),
                           MainInput(
+                            controller: passwordController,
                             label: 'Password',
                             hint: 'Enter your password',
                             keyboardType: TextInputType.visiblePassword,
@@ -95,7 +100,10 @@ class LoginPage extends StatelessWidget {
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     FocusScope.of(context).unfocus();
-                                    bloc();
+                                    bloc(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
                                   }
                                 },
                               );
