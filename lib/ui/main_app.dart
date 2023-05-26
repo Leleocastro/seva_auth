@@ -17,6 +17,7 @@ class MainApp extends StatelessWidget {
       title: 'Seva Auth',
       theme: MainTheme.customLightTheme(),
       darkTheme: MainTheme.customDarkTheme(),
+      debugShowCheckedModeBanner: false,
       home: StreamBuilder(
         stream: auth(),
         builder: (context, snap) {
