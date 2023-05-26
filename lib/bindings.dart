@@ -10,6 +10,7 @@ import 'package:seva_auth/domain/usecases/get_state_auth.dart';
 import 'package:seva_auth/domain/usecases/get_users.dart';
 import 'package:seva_auth/domain/usecases/register_user.dart';
 import 'package:seva_auth/domain/usecases/sign_in.dart';
+import 'package:seva_auth/domain/usecases/sign_out.dart';
 import 'package:seva_auth/ui/pages/home/home_bloc.dart';
 import 'package:seva_auth/ui/pages/login/login_bloc.dart';
 import 'package:seva_auth/ui/pages/register/register_bloc.dart';
@@ -37,6 +38,7 @@ class MainBindings {
     // Usecases
     GetIt.I.registerFactory<RegisterUser>(() => RegisterUser(GetIt.I.get()));
     GetIt.I.registerFactory<SignIn>(() => SignIn(GetIt.I.get()));
+    GetIt.I.registerFactory<SignOut>(() => SignOut(GetIt.I.get()));
     GetIt.I
         .registerFactory<GetCurrentUser>(() => GetCurrentUser(GetIt.I.get()));
     GetIt.I
@@ -45,7 +47,8 @@ class MainBindings {
 
     // Blocs
     GetIt.I.registerFactory<RegisterBloc>(() => RegisterBloc(GetIt.I.get()));
-    GetIt.I.registerFactory<LoginBloc>(() => LoginBloc(GetIt.I.get()));
+    GetIt.I.registerFactory<LoginBloc>(
+        () => LoginBloc(GetIt.I.get(), GetIt.I.get()));
     GetIt.I.registerFactory<HomeBloc>(() => HomeBloc(GetIt.I.get()));
   }
 }

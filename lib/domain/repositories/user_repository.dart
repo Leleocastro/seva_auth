@@ -18,5 +18,7 @@ abstract class UserRepository {
     required String password,
   });
 
+  Future<(bool?, Failure?)> signOut();
+
   Future<(List<UserEntity>?, Failure?)> getUsers();
 }

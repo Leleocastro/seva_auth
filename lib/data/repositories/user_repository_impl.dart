@@ -61,4 +61,9 @@ class UserRepositoryImpl implements UserRepository {
   Future<(List<UserEntity>?, Failure?)> getUsers() async {
     return await _userDatasource.getUsers();
   }
+
+  @override
+  Future<(bool?, Failure?)> signOut() async {
+    return await _authDatasource.signOut();
+  }
 }

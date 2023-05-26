@@ -90,4 +90,17 @@ class AuthDatasourceImpl implements AuthDatasource {
       return (null, Failure(e.toString()));
     }
   }
+
+  @override
+  Future<(bool?, Failure?)> signOut() async {
+    try {
+      await _auth.signOut();
+
+      return (true, null);
+    } on FirebaseAuthException catch (e) {
+      return (null, Failure(e.message ?? 'Failed to sign in!'));
+    } catch (e) {
+      return (null, Failure(e.toString()));
+    }
+  }
 }

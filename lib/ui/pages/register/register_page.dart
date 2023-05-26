@@ -24,7 +24,48 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          const FlutterLogo(),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Hero(
+              tag: 'topImage',
+              child: Transform(
+                transform: Matrix4.identity()..rotateZ(0.2),
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withOpacity(.7),
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(50),
+                      bottomLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Hero(
+              tag: 'bottomImage',
+              child: Transform(
+                transform: Matrix4.identity()..rotateZ(-0.2),
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: theme.hintColor.withOpacity(.7),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
+                      bottomLeft: Radius.circular(50),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 50),

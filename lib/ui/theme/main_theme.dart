@@ -6,16 +6,17 @@ class MainTheme {
     return lightTheme.copyWith(
       primaryColor: Colors.blueGrey,
       secondaryHeaderColor: Colors.indigo,
-      indicatorColor: Colors.indigo,
+      indicatorColor: Colors.grey.shade300,
+      hintColor: Colors.lime,
       scaffoldBackgroundColor: Colors.grey.shade300,
-      primaryTextTheme: const TextTheme(
-        bodyMedium: TextStyle(
+      primaryTextTheme: TextTheme(
+        bodyMedium: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
         bodySmall: TextStyle(
-          color: Colors.black,
+          color: lightTheme.hintColor,
           fontSize: 14,
         ),
       ),
@@ -33,17 +34,18 @@ class MainTheme {
     final ThemeData darkTheme = ThemeData.dark();
     return darkTheme.copyWith(
       primaryColor: Colors.blueGrey,
-      primaryTextTheme: const TextTheme(
-        bodyMedium: TextStyle(
+      primaryTextTheme: TextTheme(
+        bodyMedium: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
         bodySmall: TextStyle(
-          color: Colors.black,
+          color: darkTheme.hintColor,
           fontSize: 14,
         ),
       ),
+      hintColor: Colors.lime,
       secondaryHeaderColor: Colors.indigo,
       indicatorColor: Colors.grey.shade300,
       primaryIconTheme: darkTheme.primaryIconTheme.copyWith(

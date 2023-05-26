@@ -16,4 +16,6 @@ abstract class AuthDatasource {
     required String email,
     required String password,
   });
+
+  Future<(bool?, Failure?)> signOut();
 }
